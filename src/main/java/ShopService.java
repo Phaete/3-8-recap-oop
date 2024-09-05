@@ -27,4 +27,19 @@ public class ShopService {
                 .filter(order -> order.status() == status)
                 .toList();
     }
+
+    /**
+     * Updates an existing order with a new status.
+     *
+     * @param orderId   the ID of the order to be updated
+     * @param newStatus the new status of the order
+     */
+    public void updateOrder(String orderId, OrderStatus newStatus) {
+        // create the new order
+        Order newOrder = orderRepo.getOrderById(orderId).withStatus(newStatus);
+        // remove the old order from the list or map first due to the map simply overwriting the old order, but list does not
+        orderRepo.removeOrder(orderId);
+        // add the new order
+        orderRepo.addOrder(newOrder);
+    }
 }
