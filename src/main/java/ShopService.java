@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 public class ShopService {
     private final ProductRepo productRepo;
     private final OrderRepo orderRepo;
+    private final IdService idService;
 
     public Order addOrder(List<String> productIds) throws ProductDoesNotExistException {
         List<Product> products = new ArrayList<>();

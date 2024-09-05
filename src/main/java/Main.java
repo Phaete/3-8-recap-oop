@@ -9,6 +9,9 @@ public class Main {
         OrderRepo orderRepo = new OrderMapRepo();
         ProductRepo productRepo = new ProductRepo();
 
+        // Bonus: ID Generation - Create a concrete implemementation of IdService in main and pass it to the ShopService constructor
+        IdService idService = new IdService();
+
         // Create Product to add to the productRepo
         Product banana = new Product("2", "banana");
         productRepo.addProduct(banana);
@@ -26,7 +29,7 @@ public class Main {
         productRepo.addProduct(cherry);
 
         // Create an instance of the ShopService
-        ShopService shopservice = new ShopService(productRepo, orderRepo);
+        ShopService shopservice = new ShopService(productRepo, orderRepo, idService);
 
         // Define three (3) concrete orders and add them all to the ShopService
         shopservice.addOrder(List.of("1", "4")); // Apple and pear
