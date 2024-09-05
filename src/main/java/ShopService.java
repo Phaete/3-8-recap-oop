@@ -10,7 +10,7 @@ public class ShopService {
     public Order addOrder(List<String> productIds) throws ProductDoesNotExistException {
         List<Product> products = new ArrayList<>();
         for (String productId : productIds) {
-            if(!productRepo.getProductById(productId).isPresent()) {
+            if(productRepo.getProductById(productId).isEmpty()) {
                 throw new ProductDoesNotExistException("Product mit der Id: " + productId + " existiert nicht und konnte nicht bestellt werden!");
             }
             Product productToOrder = productRepo.getProductById(productId).get();
