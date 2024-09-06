@@ -32,8 +32,20 @@ public class Main {
         ShopService shopservice = new ShopService(productRepo, orderRepo, idService);
 
         // Define three (3) concrete orders and add them all to the ShopService
-        shopservice.addOrder(List.of("1", "4")); // Apple and pear
-        shopservice.addOrder(List.of("6", "2")); // Cherry and banana
-        shopservice.addOrder(List.of("1", "2", "3", "4", "5")); // Apple, banana, peach, pear and oranges -> vit C bomb
+        try {
+            shopservice.addOrder(List.of("1", "4")); // Apple and pear
+        } catch (ProductDoesNotExistException e) {
+            System.out.println("Could not add the order");
+        }
+        try {
+            shopservice.addOrder(List.of("6", "2")); // Cherry and banana
+        } catch (ProductDoesNotExistException e) {
+            System.out.println("Could not add the order");
+        }
+        try {
+            shopservice.addOrder(List.of("1", "2", "3", "4", "5")); // Apple, banana, peach, pear and oranges -> vit C bomb
+        } catch (ProductDoesNotExistException e) {
+            System.out.println("Could not add the order");
+        }
     }
 }
