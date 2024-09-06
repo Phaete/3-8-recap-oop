@@ -36,13 +36,16 @@ public class ShopService {
      * @param orderId   the ID of the order to be updated
      * @param newStatus the new status of the order
      */
-    public void updateOrder(String orderId, OrderStatus newStatus) {
+    public void updateOrder(String orderId, OrderStatus newStatus) throws OrderDoesNotExistException {
         // create the new order
-        Order newOrder = orderRepo.getOrderById(orderId).withStatus(newStatus);
+        Order order = orderRepo.getOrderById(orderId);
+        if (order == null) {
+            throw new OrderDoesNotExistException("Order mit der Id: " + orderId + " existiert nicht und konnte nicht aktualisiert werden!");
+        }
         // remove the old order from the list or map first due to the map simply overwriting the old order, but list does not
         orderRepo.removeOrder(orderId);
         // add the new order
-        orderRepo.addOrder(newOrder);
+        orderRepo.addOrder(order.withStatus(newStatus));
     }
 
     /**
